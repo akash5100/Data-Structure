@@ -1,0 +1,7 @@
+#Makefile
+
+queue: queue.c queue.h
+	gcc queue.c queue.h -o queue
+
+clean:
+	rm queue
