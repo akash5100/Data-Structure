@@ -16,7 +16,7 @@ void traverse(queue* root);
 queue* create_queue();
 bool isEmpty(queue* root);
 void enqueue(queue* root, int data);
-void dequeue(queue* root);
+void dequeue(queue **root);
 
 queue* create_queue()
 {
