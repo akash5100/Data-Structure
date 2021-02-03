@@ -29,6 +29,23 @@ Node* insert(int value,Node* root){
     
     return root;
 }
+
+//returns a pointer to the inorder successor of the node
+Node* minimuM(Node* root)
+{   
+    Node* temp=nullptr;
+    if (root->left != nullptr)
+    {
+        temp = minimuM(root->left);
+    }
+    else if(root->right != nullptr)
+    {
+        temp = root->right;
+    }
+    
+    return temp;
+}
+
 //deleting only leaves
 Node* DELETE(int value,Node* root){
     if (root==nullptr)
@@ -36,23 +53,36 @@ Node* DELETE(int value,Node* root){
         std::cout << "root is null" << std::endl;
         return root;
     }
-    if (value>root->data){   
-        if (root->data==value)  
-        {
-            root->data=0;
-            return root;
-        }
-        root->right=DELETE(value,root->right);
+
+    //if value lies on left of the root node then, go left 
+    if(root->data > value)
+    {
+        root->left = DELETE(value,root->left);
     }
-    if (value<root->data){   
-        if (root->data==value)  
-        {
-            root->data=0;
-            return root;
-        }
-        root->left=DELETE(value,root->left);
+    //else if value lies on right of the root node then, go right
+    else if(root->data > value)
+    {
+        root->right = DELETE(value,root->right);
     }
-    return root;
+    //if the node has 1 or no child
+    if (root->left == nullptr)
+    {   
+        Node* temp = root->right;
+        free(root);
+        return temp;
+    }
+    else if (root->right == nullptr)
+    {
+        Node* temp = root->left;
+        free(root);
+        return temp;
+    }
+    //if the node has 2 child 
+    Node* temp=minimuM(root->right);
+    temp->left = root->left;
+    temp->right = root->right;
+    free(root);
+    return temp;
 }
 
 void traverse(Node* root){
@@ -94,11 +124,15 @@ Node* search(int data,Node* root){
 
 int main(){
     Node* root=insert(50,root);
-    insert(20,root);
     insert(30,root);
+    insert(70,root);
+    insert(20,root);
+    insert(40,root);
     insert(60,root);
-    
-    DELETE(60,root);
+    insert(80,root);
+
+
+    DELETE(20,root);
     traverse(root);
     return 0;
 }
