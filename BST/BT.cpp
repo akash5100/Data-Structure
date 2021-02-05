@@ -33,16 +33,11 @@ Node* insert(int value,Node* root){
 //returns a pointer to the inorder successor of the node
 Node* minimuM(Node* root)
 {   
-    Node* temp=nullptr;
-    if (root->left != nullptr)
-    {
-        temp = minimuM(root->left);
+    Node* temp=root;
+    while (temp && temp->left != nullptr)
+    {   
+        temp = temp->left;
     }
-    else if(root->right != nullptr)
-    {
-        temp = root->right;
-    }
-    
     return temp;
 }
 
@@ -65,24 +60,28 @@ Node* DELETE(int value,Node* root){
         root->right = DELETE(value,root->right);
     }
     //if the node has 1 or no child
-    if (root->left == nullptr)
+    if (root->left == nullptr && root->data == value)
     {   
         Node* temp = root->right;
         free(root);
         return temp;
     }
-    else if (root->right == nullptr)
+    else if (root->right == nullptr && root->data == value)
     {
         Node* temp = root->left;
         free(root);
         return temp;
     }
     //if the node has 2 child 
-    Node* temp=minimuM(root->right);
-    temp->left = root->left;
-    temp->right = root->right;
-    free(root);
-    return temp;
+    if(root->right != nullptr && root->left != nullptr)
+    {
+        Node* temp=minimuM(root->right);
+    
+        temp->left = root->left;
+        temp->right = root->right;
+        free(root);
+        return temp;
+    }
 }
 
 void traverse(Node* root){
@@ -132,7 +131,7 @@ int main(){
     insert(80,root);
 
 
-    DELETE(20,root);
+    DELETE(50,root);
     traverse(root);
     return 0;
 }
