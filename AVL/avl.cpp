@@ -3,33 +3,54 @@
 //Height
 int Height(node* root)
 {
-    if (root == nullptr)
-        return root->height;
-    return 0;       
+    int left_max = Height(root->left);
+    int right_max = Height(root->right);
+        if (left_max > right_max    )
+        {
+            return left_max + 1 ;
+        }
+        else if (right_max > left_max)
+        {
+            return right_max + 1;
+        }
+    return root->height;
 }
+
 
 //rightrotation
 node* rotateright(node* root)
 {
-
+    //todo
+    return root;
 }
 
 //leftrotation
 node* rotateleft(node* root)
 {
-
+    //todo
+    return root;
 }
 
 //BalanceFactor = height(left-sutree) − height(right-sutree)
 int balance(node* root)
 {
-
+    return (Height(root->left) - Height(root->right));
 }
 
 //insert
+    // points to remember :-
+    //      All node should be balanced 
+    //      if root is null return a new node with required value
 node* insert(int value,node* root)
 {
+    if (root == nullptr)
+        return createNode(value);
     
+    if(value < root->data)
+        root->left = insert(value,root->left);
+    if (value > root->data)
+        root->right = insert(value,root->right);    
+    return root;
 }
 
 int main(void)
