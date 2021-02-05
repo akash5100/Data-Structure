@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstdlib>
+
 using namespace std;
 typedef struct Node node;
 
@@ -18,29 +20,54 @@ Node* createNode(int data){
     temp->height=1;
     return temp;
 }
+//minimum 
+Node* minimuM(Node* root)
+{   
+    Node* temp=root;
+    while (temp && temp->left != NULL){
+        temp = temp->left;}
+    return temp;
+}
 
 //delete
 Node* DELETE(int value,Node* root){
     if (root==nullptr)
-    {
-        std::cout << "root is null" << std::endl;
         return root;
+    
+    Node* temp;
+    
+    //if value lies on left of the root node then, go left 
+    if(root->data > value)
+    {
+        root->left = DELETE(value,root->left);
     }
-    if (value>root->data){   
-        if (root->data==value)  
-        {
-            root->data=0;
-            return root;
-        }
-        root->right=DELETE(value,root->right);
+    //else if value lies on right of the root node then, go right
+    else if(root->data < value)
+    {
+        root->right = DELETE(value,root->right);
     }
-    if (value<root->data){   
-        if (root->data==value)  
-        {
-            root->data=0;
-            return root;
-        }
-        root->left=DELETE(value,root->left);
+    //if the node has 1 or no child
+        //check left
+    if (root->left == nullptr && root->data == value)
+    {   
+        Node* temp = root->right;
+        free(root);
+        return temp;
+    }
+        //check right
+    else if (root->right == nullptr && root->data == value)
+    {
+        Node* temp = root->left;
+        free(root);
+        return temp;
+    }
+    
+    //if the node has 2 child 
+    if(root->right != nullptr && root->left != nullptr)
+    {
+        Node* temp=minimuM(root->right); 
+        root->data = temp->data;
+        root->right = DELETE(temp->data,root->right); 
     }
     return root;
 }
