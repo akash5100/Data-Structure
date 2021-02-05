@@ -75,7 +75,7 @@ Node* pop(Node* root)
     Node* temp = root;
     root = temp->next;
     int data = temp->data;
-    //do whatever you want with last node, here we free the node
+    //do whatever you want with last node, here we free the node 
     free(temp);
     printf("%d is popped from the stack\n",data);
     return root;
