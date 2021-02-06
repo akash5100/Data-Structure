@@ -41,6 +41,12 @@ int balance(node* root)
     // points to remember :-
     //      All node should be balanced 
     //      if root is null return a new node with required value
+    //      if balanceF equals -1 then left subtree of the node contains extra node.
+    //      if balanceF equals 1 then right subtree of the node contains extra node.
+    //      if balcnceF of node is +2 and that of node->left is +1 then we perform LL rotation
+    //      if balcnceF of node is -2 and that of node->right is -1 then we perform RR rotation
+    //      if balcnceF of node is -2 and that of node->right is +1 then we perform RL rotation
+    //      if balcnceF of node is +2 and that of node->left is -1 then we perform LR rotation
 node* insert(int value,node* root)
 {
     if (root == nullptr)
