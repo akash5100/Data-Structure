@@ -18,24 +18,74 @@ int Height(node* root)
 
 
 //rightrotation
-node* rotateright(node* root)
+node* rightright(node* root)
 {
     //todo
     return root;
 }
 
 //leftrotation
-node* rotateleft(node* root)
+node* leftleft(node* root)
+{
+    //todo
+    return root;
+}
+
+node* leftright(node* root)
+{
+    //todo
+    return root;
+}
+
+node* rightleft(node* root)
 {
     //todo
     return root;
 }
 
 //BalanceFactor = height(left-sutree) − height(right-sutree)
-int balance(node* root)
+int BFactor(node* root)
 {
     return (Height(root->left) - Height(root->right));
 }
+
+void balance(node* root)
+{
+    if(root->left != nullptr)
+        balance(root->left);
+
+    int Bf = BFactor(root);
+
+    if (Bf != 0 && Bf!= 1 &&Bf != -1)
+    {
+        switch (Bf)
+        {
+        case +2:
+            if(BFactor(root->left) == 1)
+                leftleft(root);
+            if(BFactor(root->left) == -1)
+                leftright(root);
+            break;
+        
+        case -2:
+            if(BFactor(root->right) == -1)
+                rightright(root);
+            if(BFactor(root->right) == 1)
+                rightleft(root);
+            break;
+
+        default:
+            break;
+        }
+    }
+    else
+    {
+        return;
+    }
+    
+    return;
+}
+
 
 //insert
     // points to remember :-
@@ -56,6 +106,8 @@ node* insert(int value,node* root)
         root->left = insert(value,root->left);
     if (value > root->data)
         root->right = insert(value,root->right);    
+    
+    balance(root);
     return root;
 }
 
