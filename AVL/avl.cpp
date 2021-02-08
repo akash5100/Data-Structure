@@ -2,10 +2,10 @@
 
 //Height
 int Height(node* root)
-{
+{   
     int left_max = Height(root->left);
     int right_max = Height(root->right);
-        if (left_max > right_max    )
+        if (left_max > right_max)
         {
             return left_max + 1 ;
         }
@@ -16,14 +16,6 @@ int Height(node* root)
     return root->height;
 }
 
-
-//rightrotation
-node* rightright(node* root)
-{
-    //todo
-    return root;
-}
-
 //leftrotation
 node* leftleft(node* root)
 {
@@ -32,6 +24,13 @@ node* leftleft(node* root)
 }
 
 node* leftright(node* root)
+{
+    //todo
+    return root;
+}
+
+//rightrotation
+node* rightright(node* root)
 {
     //todo
     return root;
@@ -49,41 +48,43 @@ int BFactor(node* root)
     return (Height(root->left) - Height(root->right));
 }
 
-void balance(node* root)
+void balance(node** temp)
 {
+    node* root = *temp;
     if(root->left != nullptr)
-        balance(root->left);
-
-    int Bf = BFactor(root);
-
-    if (Bf != 0 && Bf!= 1 &&Bf != -1)
     {
-        switch (Bf)
+        balance(&root->left);
+        int Bf = BFactor(root);
+
+        if (Bf != 0 && Bf!= 1 &&Bf != -1)
         {
-        case +2:
-            if(BFactor(root->left) == 1)
-                leftleft(root);
-            if(BFactor(root->left) == -1)
-                leftright(root);
-            break;
-        
-        case -2:
-            if(BFactor(root->right) == -1)
-                rightright(root);
-            if(BFactor(root->right) == 1)
-                rightleft(root);
-            break;
+            switch (Bf)
+            {
+            case +2:
+                if(BFactor(root->left) == 1)
+                    leftleft(root);
+                if(BFactor(root->left) == -1)
+                    leftright(root);
+                break;
+            
+            case -2:
+                if(BFactor(root->right) == -1)
+                    rightright(root);
+                if(BFactor(root->right) == 1)
+                    rightleft(root);
+                break;
 
-        default:
-            break;
+            default:
+                break;
+            }
         }
+        else
+            return;
     }
-    else
+    else if(root->right != nullptr)
     {
-        return;
+        //todo
     }
-    
-    return;
 }
 
 
@@ -97,17 +98,19 @@ void balance(node* root)
     //      if balcnceF of node is -2 and that of node->right is -1 then we perform RR rotation
     //      if balcnceF of node is -2 and that of node->right is +1 then we perform RL rotation
     //      if balcnceF of node is +2 and that of node->left is -1 then we perform LR rotation
-node* insert(int value,node* root)
+node* insert(int value, node* root)
 {
-    if (root == nullptr)
-        return createNode(value);
-    
+    if (root == nullptr){
+        node* temp = createNode(value);
+        balance(&root);
+        return temp;
+    }
+
     if(value < root->data)
         root->left = insert(value,root->left);
     if (value > root->data)
         root->right = insert(value,root->right);    
     
-    balance(root);
     return root;
 }
 
@@ -132,9 +135,11 @@ int main(void)
 
 
 /*
-                    50
+                -   50
                  /      \
-            30              70
-           /   \           /  \
-        20      40      60      80  
+            -30              70
+           /               /  \
+        20              60      80
+       /
+      40 
 */
