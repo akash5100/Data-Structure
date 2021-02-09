@@ -2,10 +2,12 @@
 //maximum
 int maximum(int a, int b)
 {
-    if(a > b)
-        return a;
-    else if(b > a)
-        return b;
+    int max= 0;
+    if (a > b)
+        max = a;
+    else if (b > a)
+        max = b;
+    return max;
 }
 
 //Height
@@ -22,9 +24,18 @@ int Height(node* root)
 //leftrotation
 node* leftleft(node* root)
 {
-    //todo
-    std::cout << "performing leftleft\n" << std::endl;
-    return root;
+    std::cout << "\nperforming leftleft\n" << std::endl;
+    node* temp = root->left;
+    node* temp2 = temp->right;
+
+    root->left = temp2;
+    temp->right = root;
+
+        root->height = 1 + maximum(Height(root->left),Height(root->right));
+        temp2 = temp->right;
+        temp2->height = 1 + maximum(Height(temp2->left),Height(temp2->right));
+
+    return temp;
 }
 
 node* leftright(node* root)
@@ -120,8 +131,8 @@ node* insert(int value, node* root)
 int main(void)
 {
     Node* root=insert(50,root);
-    insert(60,root);
-    insert(55,root);
+    insert(30,root);
+    insert(20,root);
     /*
     insert(20,root);
     insert(40,root);
