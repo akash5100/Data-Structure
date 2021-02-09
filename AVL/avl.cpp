@@ -1,21 +1,36 @@
 #include "avl.h"
+//maximum
+int maximum(int a, int b)
+{
+    if(a > b)
+        return a;
+    else if(b > a)
+        return b;
+}
 
 //Height
 int Height(node* root)
 {       
-    //todo
+    if (root == nullptr)
+    {
+        return 0;
+    }
+    return root->height;
+    
 }
 
 //leftrotation
 node* leftleft(node* root)
 {
     //todo
+    std::cout << "performing leftleft\n" << std::endl;
     return root;
 }
 
 node* leftright(node* root)
 {
     //todo
+    std::cout << "performing leftright\n" << std::endl;
     return root;
 }
 
@@ -23,12 +38,14 @@ node* leftright(node* root)
 node* rightright(node* root)
 {
     //todo
+    std::cout << "performing rightright\n" << std::endl;
     return root;
 }
 
 node* rightleft(node* root)
 {
     //todo
+    std::cout << "performing rightleft\n" << std::endl;
     return root;
 }
 
@@ -38,43 +55,35 @@ int BFactor(node* root)
     return (Height(root->left) - Height(root->right));
 }
 
-void balance(node** temp)
+void balance(node* root)
 {
-    node* root = *temp;
-    if(root->left != nullptr)
-    {
-        balance(&root->left);
-        int Bf = BFactor(root);
+    int Bf = BFactor(root);
 
-        if (Bf != 0 && Bf!= 1 &&Bf != -1)
+    if (Bf != 0 && Bf!= 1 &&Bf != -1)
+    {
+        switch (Bf)
         {
-            switch (Bf)
-            {
-            case +2:
-                if(BFactor(root->left) == 1)
-                    leftleft(root);
-                if(BFactor(root->left) == -1)
-                    leftright(root);
-                break;
-            
-            case -2:
-                if(BFactor(root->right) == -1)
-                    rightright(root);
-                if(BFactor(root->right) == 1)
-                    rightleft(root);
-                break;
+        case +2:
+            if(BFactor(root->left) == 1)
+                leftleft(root);
+            if(BFactor(root->left) == -1)
+                leftright(root);
+            break;
+        
+        case -2:
+            if(BFactor(root->right) == -1)
+                rightright(root);
+            if(BFactor(root->right) == 1)
+                rightleft(root);
+            break;
 
-            default:
-                break;
-            }
+        default:
+            std::cout << "performing nothing\n" << std::endl;
+            break;
         }
-        else
-            return;
     }
-    else if(root->right != nullptr)
-    {
-        //todo
-    }
+    return;
+
 }
 
 
@@ -96,23 +105,31 @@ node* insert(int value, node* root)
 
     if(value < root->data)
         root->left = insert(value,root->left);
-    if (value > root->data)
-        root->right = insert(value,root->right);    
-    
+    else if (value > root->data)
+        root->right = insert(value,root->right);
+    else 
+        return root;   
+
+    root->height = 1 + maximum(Height(root->left),Height(root->right));
+
+    balance(root);
+
     return root;
 }
 
 int main(void)
 {
     Node* root=insert(50,root);
-    insert(30,root);
-    insert(70,root);
+    insert(60,root);
+    insert(55,root);
+    /*
     insert(20,root);
     insert(40,root);
     insert(60,root);
     insert(80,root);
+    */
 
-    DELETE(50,root);
+    //DELETE(50,root);
 
     std::cout << "\nTree:-\n" << std::endl;
     traverse(root);
