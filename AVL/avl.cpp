@@ -2,18 +2,8 @@
 
 //Height
 int Height(node* root)
-{   
-    int left_max = Height(root->left);
-    int right_max = Height(root->right);
-        if (left_max > right_max)
-        {
-            return left_max + 1 ;
-        }
-        else if (right_max > left_max)
-        {
-            return right_max + 1;
-        }
-    return root->height;
+{       
+    //todo
 }
 
 //leftrotation
@@ -101,9 +91,7 @@ void balance(node** temp)
 node* insert(int value, node* root)
 {
     if (root == nullptr){
-        node* temp = createNode(value);
-        balance(&root);
-        return temp;
+        return createNode(value);
     }
 
     if(value < root->data)
@@ -137,9 +125,9 @@ int main(void)
 /*
                 -   50
                  /      \
-            -30              70
-           /               /  \
-        20              60      80
+            -30           70
+           /             /  \
+        20            60     80
        /
       40 
 */
