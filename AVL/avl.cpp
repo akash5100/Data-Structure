@@ -35,7 +35,7 @@ node* leftleft(node* root)
         temp2 = temp->right;
         temp2->height = 1 + maximum(Height(temp2->left),Height(temp2->right));
 
-    return temp;
+    return temp; 
 }
 
 node* leftright(node* root)
