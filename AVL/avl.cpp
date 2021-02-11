@@ -17,8 +17,7 @@ int Height(node* root)
     {
         return 0;
     }
-    return root->height;
-    
+    return root->height;  
 }
 
 //leftrotation
@@ -38,26 +37,34 @@ node* leftleft(node* root)
     return temp; 
 }
 
-node* leftright(node* root)
-{
-    //todo
-    std::cout << "performing leftright\n" << std::endl;
-    return root;
-}
-
 //rightrotation
 node* rightright(node* root)
 {
-    //todo
+    node* temp = root->right;
+    node* t2 = temp->left;
+    root->right = t2;
+    temp->left = root;
+
+    root->height = maximum(Height(root->left),Height(root->right))+1;
+    t2 = temp->right;
+    t2->height = maximum(Height(t2->left),Height(t2->right))+1;
+
     std::cout << "performing rightright\n" << std::endl;
-    return root;
+    return temp;
+}
+
+node* leftright(node* root)
+{
+    std::cout << "performing leftright\n" << std::endl;
+    rightright(root->left);
+    return leftleft(root);
 }
 
 node* rightleft(node* root)
 {
-    //todo
     std::cout << "performing rightleft\n" << std::endl;
-    return root;
+    leftleft(root->right);
+    return rightright(root);
 }
 
 //BalanceFactor = height(left-sutree) − height(right-sutree)
@@ -121,7 +128,7 @@ node* insert(int value, node* root)
     else 
         return root;   
 
-    root->height = 1 + maximum(Height(root->left),Height(root->right));
+    root->height = maximum(Height(root->left),Height(root->right))+1;
 
     balance(root);
 
@@ -130,15 +137,14 @@ node* insert(int value, node* root)
 
 int main(void)
 {
-    Node* root=insert(50,root);
-    insert(30,root);
-    insert(20,root);
-    /*
-    insert(20,root);
-    insert(40,root);
-    insert(60,root);
-    insert(80,root);
-    */
+    Node* root=insert(10,root);
+    insert(11,root);
+    insert(5,root);
+    insert(4,root);
+    insert(7,root);
+    insert(6,root);
+    insert(8,root);
+    
 
     //DELETE(50,root);
 
