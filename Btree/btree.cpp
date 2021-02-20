@@ -4,5 +4,5 @@ using namespace std;
 
 int main(void)
 {
-    //this is test commit
+    //this is test commit.
 }
