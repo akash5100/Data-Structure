@@ -12,7 +12,7 @@ public:
     btree_node(int T)
     {
         data = new int[T-1];
-        ptr = new btree_node *[T];
+        ptr = new btree_node *[T]; 
     }
 };
 
