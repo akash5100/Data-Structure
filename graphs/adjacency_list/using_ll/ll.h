@@ -9,6 +9,15 @@ struct node
     struct node *next;
 };
 
+//signature
+Node* createNode(int data);
+Node* insert(int data,Node *head);
+Node* DELETE(int data, Node *head);
+void search(Node *head);
+void Traverse(Node *head);
+void destroy_ll(Node *head);
+
+
 // create single node with the `next` pointer pointing `NULL` ✔
 Node* createNode(int data)
 {
@@ -58,11 +67,20 @@ Node* insert(int data,Node *head)
 }
 
 //delete node
-//todo
-void DELETE(int data, Node *head)
+Node* DELETE(int data, Node *head)
 {
-    //todo
-
+    Node* temp = head;
+    Node* temp2 = head;
+    while (temp2->data < data)
+    {
+        temp2 = temp2->next;
+        if (temp2->data != data)
+        {
+            temp = temp2;
+        }
+    }
+    temp->next = temp2->next;
+    return head;
 }
 
 //search a node ✔
