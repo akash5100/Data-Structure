@@ -3,5 +3,6 @@
 graph: graph.c ll.h
 	gcc -g graph.c ll.h -o graph
 
-clean:
-	rm graph
+clean: graph ll
+	rm graph 
+	rm ll
