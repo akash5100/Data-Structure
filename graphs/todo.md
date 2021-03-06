@@ -1,5 +1,6 @@
-adjacency list 
-    linked list 
+~adjacency list using linked list~
+
+adjacency matrix
 
 Breath first search 
 
