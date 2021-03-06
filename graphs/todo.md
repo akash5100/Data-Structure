@@ -1,6 +1,5 @@
 adjacency list 
     linked list 
-    binary tree
 
 Breath first search 
 
