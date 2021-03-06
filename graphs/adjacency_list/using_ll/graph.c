@@ -1,16 +1,29 @@
 #include "ll.h"
 
+
+
 int main(void)
 {
-    Node* head = createNode(50);
-    insert(30,head);
-    insert(35,head);
-    insert(40,head);
-    DELETE(35,head);
-    insert(10,head);
-    insert(35,head);
-    insert(45,head);
+    int v = 4;
 
-    Traverse(head);
+    graph* Graph = createGraph(v);
+    //only problem 
+    //  in case of using autosorting, largest node must be inserted first
+    insert(Graph, 0, 50);
+    insert(Graph, 0, 40);
+    insert(Graph, 0, 45);
+    insert(Graph, 0, 40);
+    insert(Graph, 2, 30);
+    insert(Graph, 2, 20);
+
+    Traverse(Graph);
     return 0;
 }
+
+/*
+output 
+
+at index 0 :-  
+    ->1->5
+
+*/
