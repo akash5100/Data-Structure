@@ -47,28 +47,44 @@ graph* insert(graph* Graph, int index, int value)
     if (Graph->list[index].head == NULL){
         Graph->list[index].head = createNode(value);
         return Graph; }
+/*
+*    //auto-sorting insertion
+*    //only problem 
+*    //in case of using autosorting, largest node must be inserted first
+*    
+*    Node* temp = Graph->list[index].head;
+*        //make temp pointer point on a smaller node than data is available
+*        while(temp->data < value)
+*        {
+*            temp = temp ->next;
+*        }
+*        if (temp->data > value)
+*        {   
+*            Node* temp2 = createNode(value);
+*            temp2->next = temp->next;
+*            temp->next = temp2;
+*            int A = temp->data;
+*            temp->data = temp2->data;
+*            temp2->data = A;
+*       }
+*      if (temp->data < value)
+*      {
+*         Node* temp2 = createNode(value);
+*            temp2->next = temp->next;
+*            temp->next = temp2;
+*      } 
+*/
 
     Node* temp = Graph->list[index].head;
         //make temp pointer point on a smaller node than data is available
-        while(temp->data < value)
+        while(temp->next != NULL)
         {
             temp = temp ->next;
         }
-        if (temp->data > value)
-        {   
-            Node* temp2 = createNode(value);
-            temp2->next = temp->next;
-            temp->next = temp2;
-            int A = temp->data;
-            temp->data = temp2->data;
-            temp2->data = A;
-        }
-        if (temp->data < value)
-        {
-            Node* temp2 = createNode(value);
-            temp2->next = temp->next;
-            temp->next = temp2;
-        }
+        Node* temp2 = createNode(value);
+        temp2->next = temp->next;
+        temp->next = temp2;
+
     return Graph;
 }   
 
