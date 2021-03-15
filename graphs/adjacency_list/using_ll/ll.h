@@ -85,8 +85,20 @@ graph* insert(graph* Graph, int index, int value)
         temp2->next = temp->next;
         temp->next = temp2;
 
+        //for undirected graph
+        if (value <= Graph->V)
+        {
+            Node* temp3 = Graph->list[value].head;
+            while(temp3->next != NULL)
+            {
+                temp3 = temp3->next;
+            }
+            temp2 = createNode(index);
+            temp2->next = temp->next;
+            temp->next = temp2;
+        }
     return Graph;
-}   
+}
 
 void Traverse(graph *head)
 {

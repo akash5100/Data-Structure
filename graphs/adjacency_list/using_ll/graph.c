@@ -7,15 +7,14 @@ int main(void)
     int v = 5;
 
     graph* Graph = createGraph(v);
-    //only problem 
-    //  in case of using autosorting, largest node must be inserted first
+    
     insert(Graph, 0, 1);
-    insert(Graph, 0, 4);
-    insert(Graph, 1, 2);
-    insert(Graph, 1, 3);
-    insert(Graph, 1, 4);
-    insert(Graph, 2, 3);
-    insert(Graph, 3, 4);
+    //insert(Graph, 0, 4);
+    //insert(Graph, 1, 2);
+    //insert(Graph, 1, 3);
+    //insert(Graph, 1, 4);
+    //insert(Graph, 2, 3);
+    //insert(Graph, 3, 4);
 
     Traverse(Graph);
     return 0;
