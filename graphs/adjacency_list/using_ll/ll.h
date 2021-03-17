@@ -76,7 +76,7 @@ graph* insert(graph* Graph, int index, int value)
 */
 
     Node* temp = Graph->list[index].head;
-        //make temp pointer point on a smaller node than data is available
+        //let the temp pointer point at last of the list
         while(temp->next != NULL)
         {
             temp = temp ->next;
@@ -85,18 +85,15 @@ graph* insert(graph* Graph, int index, int value)
         temp2->next = temp->next;
         temp->next = temp2;
 
-        //for undirected graph
-        if (value <= Graph->V)
-        {
-            Node* temp3 = Graph->list[value].head;
-            while(temp3->next != NULL)
-            {
-                temp3 = temp3->next;
-            }
-            temp2 = createNode(index);
-            temp2->next = temp->next;
-            temp->next = temp2;
-        }
+    //for undirected graph
+    //temp = Graph->list[value].head;
+    //   while(temp->next != NULL)
+    //   {
+    //       temp = temp ->next;
+    //   }
+    //temp2 = createNode(index);
+    //temp2->next = temp->next;
+    //temp->next = temp2;
     return Graph;
 }
 
