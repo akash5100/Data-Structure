@@ -2,7 +2,7 @@
 
 ~adjacency matrix~
 
-Breath first search 
+~Breath first search~ 
 
 depth first search
 
